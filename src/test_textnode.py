@@ -18,11 +18,10 @@ class TestTextNode(unittest.TestCase):
         node = TextNode("This is the url", TextType.ITALIC, "https://priyanshoon")
         self.assertEqual(first="https://priyanshoon", second=node.url)
 
-
     def test_urlNone(self):
         node = TextNode("the url is none", TextType.TEXT)
         self.assertIsNone(node.url)
-    
+
     def test_text_type(self):
         node = TextNode("This is the bold type", TextType.ITALIC, None)
         self.assertEqual(first=TextType.ITALIC, second=node.text_type)
