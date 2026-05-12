@@ -1,6 +1,6 @@
 import unittest
 
-from htmlnode import HTMLNode, LeafNode
+from htmlnode import HTMLNode, LeafNode, ParentNode
 
 
 class TestHTMLNode(unittest.TestCase):
@@ -32,3 +32,27 @@ class TestHTMLNode(unittest.TestCase):
         equals_to = '<a href="https://priyanshoon.me" target="_blank">Click me!</a>'
 
         self.assertEqual(node.to_html(), equals_to)
+
+    def test_to_html_with_children(self):
+        child_node = LeafNode("span", "child")
+        parent_node = ParentNode("div", [child_node])
+        self.assertEqual(parent_node.to_html(), "<div><span>child</span></div>")
+
+    def test_to_html_with_a_children(self):
+        child_a = LeafNode(
+            "a", "Click me!", {"href": "https://priyanshoon.me/", "target": "_blank"}
+        )
+        parent_node = ParentNode("div", [child_a])
+        self.assertEqual(
+            parent_node.to_html(),
+            '<div><a href="https://priyanshoon.me/" target="_blank">Click me!</a></div>',
+        )
+
+    def test_to_html_with_grandchildren(self):
+        grandchild_node = LeafNode("b", "grandchild")
+        child_node = ParentNode("span", [grandchild_node])
+        parent_node = ParentNode("div", [child_node])
+        self.assertEqual(
+            parent_node.to_html(),
+            "<div><span><b>grandchild</b></span></div>",
+        )
