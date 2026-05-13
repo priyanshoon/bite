@@ -36,6 +36,27 @@ class TestSplitNodesDelimiter(unittest.TestCase):
 
         self.assertEqual(str(context.exception), "delimiter not closed")
 
+    def test_empty_delimiter(self):
+        node = TextNode("text is **** something", TextType.TEXT)
+        new_nodes = split_nodes_delimiter([node], "**", TextType.BOLD)
+
+        equals = [
+            TextNode("text is ", TextType.TEXT),
+            TextNode(" something", TextType.TEXT),
+        ]
+
+        self.assertEqual(new_nodes, equals)
+
+    def test_start_with_delimiter(self):
+        node = TextNode("**bold** text", TextType.TEXT)
+        new_nodes = split_nodes_delimiter([node], "**", TextType.BOLD)
+        equals = [
+            TextNode("bold", TextType.BOLD),
+            TextNode(" text", TextType.TEXT)
+        ]
+
+        self.assertEqual(new_nodes, equals)
+
     def test_ignore_non_text_nodes(self):
         node = TextNode("`someone`", TextType.CODE)
         new_nodes = split_nodes_delimiter([node], "`", TextType.CODE)
