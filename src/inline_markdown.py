@@ -101,3 +101,14 @@ def split_nodes_link(old_nodes):
             result.append(TextNode(text, TextType.TEXT))
 
     return result
+
+
+# TODO: convert raw markdown text to text node
+def text_to_textnodes(text):
+    node = TextNode(text, TextType.TEXT)
+
+    
+
+    return []
+
+
