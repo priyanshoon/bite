@@ -37,3 +37,67 @@ def extract_markdown_images(text):
 def extract_markdown_links(text):
     matches = re.findall(r"(?<!!)\[([^\[\]]*)\]\(([^\(\)]*)\)", text)
     return matches
+
+
+def split_nodes_image(old_nodes):
+    result = []
+
+    for old_node in old_nodes:
+        if old_node.text_type != TextType.TEXT:
+            result.append(old_node)
+            continue
+
+        extract = extract_markdown_images(old_node.text)
+        if len(extract) == 0:
+            result.append(old_node)
+            continue
+
+        text = old_node.text
+        for alt, url in extract:
+            image_markdown = f"![{alt}]({url})"
+
+            sections = text.split(image_markdown, 1)
+
+            if sections[0] != "":
+                result.append(TextNode(sections[0], TextType.TEXT))
+
+            result.append(TextNode(alt, TextType.IMAGE, url))
+
+            text = sections[1]
+
+        if text != "":
+            result.append(TextNode(text, TextType.TEXT))
+
+    return result
+
+
+def split_nodes_link(old_nodes):
+    result = []
+
+    for old_node in old_nodes:
+        if old_node.text_type != TextType.TEXT:
+            result.append(old_node)
+            continue
+
+        extract = extract_markdown_links(old_node.text)
+        if len(extract) == 0:
+            result.append(old_node)
+            continue
+
+        text = old_node.text
+        for link, url in extract:
+            image_markdown = f"[{link}]({url})"
+
+            sections = text.split(image_markdown, 1)
+
+            if sections[0] != "":
+                result.append(TextNode(sections[0], TextType.TEXT))
+
+            result.append(TextNode(link, TextType.LINK, url))
+
+            text = sections[1]
+
+        if text != "":
+            result.append(TextNode(text, TextType.TEXT))
+
+    return result
