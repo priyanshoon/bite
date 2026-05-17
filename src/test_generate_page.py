@@ -31,6 +31,6 @@ fucking ninja"""
         md = """## Not h1
 
 # Yes"""
-        
+
         extract = extract_title(md)
         self.assertEqual("Yes", extract)

@@ -178,7 +178,7 @@ class TestSplitNodesDelimiter(unittest.TestCase):
         )
 
     def test_text_to_textnodes(self):
-        text = "This is **text** with an _italic_ word and a `code block` and an ![obi wan image](https://i.imgur.com/fJRm4Vk.jpeg) and a [link](https://boot.dev)"
+        text = "This is **text** with an _italic_ word and a `code block` and an ![obi wan image](https://i.imgur.com/fJRm4Vk.jpeg) and a [link](https://priyanshoon.me)"
         nodes = text_to_textnodes(text)
         equals = [
             TextNode("This is ", TextType.TEXT),
@@ -192,7 +192,7 @@ class TestSplitNodesDelimiter(unittest.TestCase):
                 "obi wan image", TextType.IMAGE, "https://i.imgur.com/fJRm4Vk.jpeg"
             ),
             TextNode(" and a ", TextType.TEXT),
-            TextNode("link", TextType.LINK, "https://boot.dev"),
+            TextNode("link", TextType.LINK, "https://priyanshoon.me"),
         ]
 
         self.assertEqual(equals, nodes)

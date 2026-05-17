@@ -1,7 +1,7 @@
+from generate_page import generate_pages_recursive
+from generate_page import generate_page
 import shutil
 import os
-
-from textnode import TextNode, TextType
 
 
 def copy_static_to_public():
@@ -26,9 +26,9 @@ def copy_static_to_public_helper(src, dst):
 
 
 def main():
-    dummy = TextNode("This is my website link", TextType.LINK, "https://priyanshoon.me")
-    print(dummy)
     copy_static_to_public()
+    generate_pages_recursive("content", "template.html", "public")
 
 
-main()
+if __name__ == "__main__":
+    main()
