@@ -16,11 +16,6 @@ Clone the repository -
 git clone https://github.com/priyanshoon/bite
 ```
 
-Using Nix -
-```
-TODO: will update later
-```
-
 # Usage
 
 - Your markdown should be inside `content` directory, I have pushed some example files in there
